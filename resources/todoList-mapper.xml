@@ -4,40 +4,67 @@
     <comment>TODOLIST MAPPER</comment>
     <entry key="selectAll">
     SELECT
+        TODO_SEQ,
         TODO_EXECUTE,
         TODO_TASK,
         TODO_DUEDATE,
-        FLOOR(TODO_DUEDATE - SYSDATE) DDAY,
+        FLOOR(TODO_DUEDATE - SYSDATE) "DDAY",
         TODO_PRIORITY
     FROM
         TODOLIST
+    WHERE 
+        TODO_DELETE = 'N' AND 
+        TODO_EXECUTE = 'N'
+    </entry>
+    <entry key="selectComplete">
+    SELECT
+        TODO_SEQ,
+        TODO_EXECUTE,
+        TODO_TASK,
+        TODO_DUEDATE,
+        FLOOR(TODO_DUEDATE - SYSDATE) "DDAY",
+        TODO_PRIORITY
+    FROM
+        TODOLIST
+    WHERE 
+        TODO_DELETE = 'N' AND 
+        TODO_EXECUTE = 'Y'
     </entry>
     <entry key="addTask">
     INSERT
         INTO
             TODOLIST(
+                TODO_SEQ,
                 TODO_TASK,
                 TODO_DUEDATE,
                 TODO_PRIORITY)
             VALUES (
+                SEQ_TODOLIST.NEXTVAL,
                 ? ,
-                ? ,
+                TO_DATE(?,'YYYYMMDD'),
                 ?)
     </entry>
     <entry key = "updateTask">
-    UPDATE T
-        ODOLIST
+    UPDATE TODOLIST
     SET
         TODO_TASK = ?,
-        TODO_DUEDATE = TO_DATE(?,'YYYYMMDD'),
+        TODO_DUEDATE = ?,
         TODO_PRIORITY = ?
     WHERE
         TODO_SEQ = ?
     </entry>
+
+    <entry key="completeTask">
+        UPDATE TODOLIST
+        SET TODO_EXECUTE = 'Y'
+        WHERE TODO_SEQ = ?
+    </entry>
+
+
     <entry key = "deleteTask">
-    DELETE
-        FROM
-            TODOLIST
+    UPDATE TODOLIST
+    SET
+        TODO_DELETE = 'Y'
     WHERE
         TODO_SEQ = ?
     </entry>

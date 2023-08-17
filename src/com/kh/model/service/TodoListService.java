@@ -20,11 +20,21 @@ public class TodoListService {
     return temp;
   }
 
+  public ArrayList<TodoList> selectComplete() {
+    ArrayList<TodoList> temp = null;
+    try (Connection conn = getConnection()) {
+      temp = new TodoListDao().selectComplete(conn);
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return temp;
+  }
+
   public int addTask(TodoList tList) {
     int result = 0;
     try (Connection conn = getConnection()) {
       result = new TodoListDao().addTask(conn, tList);
-      if (result > 1) {
+      if (result > 0) {
         commit(conn);
       } else {
         rollback(conn);
@@ -39,7 +49,7 @@ public class TodoListService {
     int result = 0;
     try (Connection conn = getConnection()) {
       result = new TodoListDao().updateTask(conn, tList);
-      if (result > 1) {
+      if (result > 0) {
         commit(conn);
       } else {
         rollback(conn);
@@ -50,11 +60,21 @@ public class TodoListService {
     return result;
   }
 
+  public int completeTask(int seq) {
+    int result = 0;
+    try (Connection conn = getConnection()) {
+      result = new TodoListDao().completeTask(conn, seq);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return result;
+  }
+
   public int deleteTask(TodoList tList) {
     int result = 0;
     try (Connection conn = getConnection()) {
       result = new TodoListDao().deleteTask(conn, tList);
-      if (result > 1) {
+      if (result > 0) {
         commit(conn);
       } else {
         rollback(conn);

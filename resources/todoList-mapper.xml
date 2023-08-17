@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+    <comment>TODOLIST MAPPER</comment>
+    <entry key="selectAll">
+    SELECT
+        TODO_EXECUTE,
+        TODO_TASK,
+        TODO_DUEDATE,
+        FLOOR(TODO_DUEDATE - SYSDATE) DDAY,
+        TODO_PRIORITY
+    FROM
+        TODOLIST
+    </entry>
+    <entry key="addTask">
+    INSERT
+        INTO
+            TODOLIST(
+                TODO_TASK,
+                TODO_DUEDATE,
+                TODO_PRIORITY)
+            VALUES (
+                ? ,
+                ? ,
+                ?)
+    </entry>
+    <entry key = "updateTask">
+    UPDATE T
+        ODOLIST
+    SET
+        TODO_TASK = ?,
+        TODO_DUEDATE = TO_DATE(?,'YYYYMMDD'),
+        TODO_PRIORITY = ?
+    WHERE
+        TODO_SEQ = ?
+    </entry>
+    <entry key = "deleteTask">
+    DELETE
+        FROM
+            TODOLIST
+    WHERE
+        TODO_SEQ = ?
+    </entry>
+</properties>

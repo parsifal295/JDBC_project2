@@ -1,13 +1,11 @@
 package com.kh.model.vo;
 
-import java.sql.Date;
-
 public class TodoList {
 
   private int sequence;
   private char execute;
   private String task;
-  private Date dueDate;
+  private String dueDate;
   private int remaining;
   private int priority;
 
@@ -17,7 +15,7 @@ public class TodoList {
     int sequence,
     char execute,
     String task,
-    Date dueDate,
+    String dueDate,
     int remaining,
     int priority
   ) {
@@ -29,7 +27,7 @@ public class TodoList {
     this.priority = priority;
   }
 
-  public TodoList(char execute, String task, Date duedate, int priority) {
+  public TodoList(char execute, String task, String duedate, int priority) {
     this.execute = execute;
     this.task = task;
     this.dueDate = duedate;
@@ -60,11 +58,11 @@ public class TodoList {
     this.task = task;
   }
 
-  public Date getDueDate() {
+  public String getDueDate() {
     return this.dueDate;
   }
 
-  public void setDueDate(Date dueDate) {
+  public void setDueDate(String dueDate) {
     this.dueDate = dueDate;
   }
 

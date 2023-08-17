@@ -8,12 +8,21 @@ import java.util.ArrayList;
 public class TodoListController {
 
   public ArrayList<TodoList> selectAll() {
-    ArrayList<TodoList> temp = new ArrayList<TodoList>();
+    ArrayList<TodoList> temp = new TodoListService().selectAll();
+    if (temp.isEmpty()) {
+      new TodoListView().displayFail();
+    } else {
+      new TodoListView().displayList(temp);
+    }
+    return temp;
+  }
+
+  public ArrayList<TodoList> selectComplete() {
+    ArrayList<TodoList> temp = new TodoListService().selectComplete();
     if (temp.isEmpty()) {
       new TodoListView().displayFail();
     }
-    new TodoListService().selectAll();
-    return null;
+    return temp;
   }
 
   public int addTask(TodoList tList) {
@@ -28,7 +37,6 @@ public class TodoListController {
 
   public int updateTask(TodoList tList) {
     int result = new TodoListService().updateTask(tList);
-    new TodoListService().updateTask(tList);
     if (result > 0) {
       new TodoListView().displaySuccess();
     } else {
@@ -37,9 +45,18 @@ public class TodoListController {
     return result;
   }
 
+  public void completeTask(int seq) {
+    int result = new TodoListService().completeTask(seq);
+
+    if (result > 0) {
+      new TodoListView().displaySuccess();
+    } else {
+      new TodoListView().displayFail();
+    }
+  }
+
   public int deleteTask(TodoList tList) {
     int result = new TodoListService().deleteTask(tList);
-    new TodoListService().updateTask(tList);
     if (result > 0) {
       new TodoListView().displaySuccess();
     } else {

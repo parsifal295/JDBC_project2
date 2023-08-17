@@ -144,7 +144,10 @@ public class TodoListView {
     System.out.println("서비스 요청 실패!!");
   }
 
-  public void displayList(ArrayList<TodoList> list) {
+  public void displayList(
+    ArrayList<TodoList> list,
+    ArrayList<TodoList> completeList
+  ) {
     System.out.println("\n조회된 리스트는 총 " + list.size() + "개 입니다.");
     String str = null;
     FileOutputStream fs;
@@ -165,6 +168,23 @@ public class TodoListView {
           "</td>" +
           "<td>" +
           list.get(i).getRemaining() +
+          "</td> </tr>";
+        fs.write(str.getBytes());
+      }
+      fs.write(JDBCTemplate.htmlComplete().getBytes());
+      for (int i = 0; i < completeList.size(); i++) {
+        str =
+          "<tr> <td height=\"25\"> " +
+          completeList.get(i).getExecute() +
+          "</td>" +
+          "<td>" +
+          completeList.get(i).getTask() +
+          "</td>" +
+          "<td>" +
+          completeList.get(i).getDueDate() +
+          "</td>" +
+          "<td>" +
+          completeList.get(i).getRemaining() +
           "</td> </tr>";
         fs.write(str.getBytes());
       }

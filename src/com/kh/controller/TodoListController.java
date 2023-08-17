@@ -9,10 +9,11 @@ public class TodoListController {
 
   public ArrayList<TodoList> selectAll() {
     ArrayList<TodoList> temp = new TodoListService().selectAll();
+    ArrayList<TodoList> temp2 = new TodoListService().selectComplete();
     if (temp.isEmpty()) {
       new TodoListView().displayFail();
     } else {
-      new TodoListView().displayList(temp);
+      new TodoListView().displayList(temp, temp2);
     }
     return temp;
   }
@@ -47,6 +48,7 @@ public class TodoListController {
 
   public void completeTask(int seq) {
     int result = new TodoListService().completeTask(seq);
+    ArrayList<TodoList> list = new ArrayList<>();
 
     if (result > 0) {
       new TodoListView().displaySuccess();

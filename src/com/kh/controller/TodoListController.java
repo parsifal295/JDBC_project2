@@ -48,8 +48,6 @@ public class TodoListController {
 
   public void completeTask(int seq) {
     int result = new TodoListService().completeTask(seq);
-    ArrayList<TodoList> list = new ArrayList<>();
-
     if (result > 0) {
       new TodoListView().displaySuccess();
     } else {
